@@ -42,7 +42,9 @@ class App extends Component {
     this.setState({sTx: event.target.value});
   }
 
-  deserialize() {
+  deserialize(event) {
+    event.preventDefault();
+
     var error;
 
     try {
@@ -86,62 +88,64 @@ class App extends Component {
           </AppBar>
           <Grid container justify="center">
             <Grid item xs={11}>
-              <Grid container spacing={24} alignItems="baseline">
-                <Grid item xs={10}>
-                  <TextField fullWidth label="Serialized Tx" onChange={this.handleChange} />
+              <form onSubmit={this.deserialize}>
+                <Grid container spacing={24} alignItems="baseline">
+                  <Grid item xs={10}>
+                    <TextField fullWidth label="Serialized Tx" onChange={this.handleChange} />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Button fullWidth variant="raised" color="primary" onClick={this.deserialize}>Deserialize</Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                      {!this.state.dTx && !this.state.error &&
+                        <Typography>
+                          Paste your serialized transaction above and hit the button.
+                        </Typography>
+                      }
+                      {this.state.error &&
+                        <Typography>
+                          {this.state.error}
+                        </Typography>
+                      }
+                      {this.state.dTx &&
+                        <React.Fragment>
+                          <Typography color="textSecondary">
+                            From
+                          </Typography>
+                          <Typography variant="headline" className={classes.pos}>
+                            {this.state.from}
+                          </Typography>
+                          <Typography color="textSecondary">
+                            To
+                          </Typography>
+                          <Typography variant="headline" className={classes.pos}>
+                            {this.state.to}
+                          </Typography>
+                          <Typography color="textSecondary">
+                            Value
+                          </Typography>
+                          <Typography variant="headline" className={classes.pos}>
+                            {this.state.value}
+                          </Typography>
+                          <Typography color="textSecondary">
+                            Gas
+                          </Typography>
+                          <Typography variant="headline" className={classes.pos}>
+                            {this.state.gas}
+                          </Typography>
+                          <Typography color="textSecondary">
+                            Gas price
+                          </Typography>
+                          <Typography variant="headline">
+                            {this.state.gasPrice}
+                          </Typography>
+                        </React.Fragment>
+                      }
+                    </Paper>
+                  </Grid>
                 </Grid>
-                <Grid item xs={2}>
-                  <Button fullWidth variant="raised" color="primary" onClick={this.deserialize}>Deserialize</Button>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                    {!this.state.dTx && !this.state.error &&
-                      <Typography>
-                        Paste your serialized transaction above and hit the button.
-                      </Typography>
-                    }
-                    {this.state.error &&
-                      <Typography>
-                        {this.state.error}
-                      </Typography>
-                    }
-                    {this.state.dTx &&
-                      <React.Fragment>
-                        <Typography color="textSecondary">
-                          From
-                        </Typography>
-                        <Typography variant="headline" className={classes.pos}>
-                          {this.state.from}
-                        </Typography>
-                        <Typography color="textSecondary">
-                          To
-                        </Typography>
-                        <Typography variant="headline" className={classes.pos}>
-                          {this.state.to}
-                        </Typography>
-                        <Typography color="textSecondary">
-                          Value
-                        </Typography>
-                        <Typography variant="headline" className={classes.pos}>
-                          {this.state.value}
-                        </Typography>
-                        <Typography color="textSecondary">
-                          Gas
-                        </Typography>
-                        <Typography variant="headline" className={classes.pos}>
-                          {this.state.gas}
-                        </Typography>
-                        <Typography color="textSecondary">
-                          Gas price
-                        </Typography>
-                        <Typography variant="headline">
-                          {this.state.gasPrice}
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  </Paper>
-                </Grid>
-              </Grid>
+              </form>
             </Grid>
           </Grid>
         </div>
