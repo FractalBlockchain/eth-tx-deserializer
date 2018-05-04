@@ -19,6 +19,7 @@ const styles = {
   },
   title: {
     color: "white",
+    flex: 1,
   },
   paper: {
     padding: "1em",
@@ -68,6 +69,7 @@ class App extends Component {
         value: parseInt(dTx.value.toString("hex"), 16),
         gas: parseInt(dTx.gas.toString("hex"), 16),
         gasPrice: parseInt(dTx.gasPrice.toString("hex"), 16),
+        nonce: parseInt(dTx.nonce.toString("hex"), 16) || 0,
       });
     }
   }
@@ -84,6 +86,7 @@ class App extends Component {
               <Typography variant="title" className={classes.title}>
                 Ethereum Tx Deserializer
               </Typography>
+              <Button variant="raised" color="secondary" href="https://github.com/lifeonmarspt/eth-tx-deserializer">GitHub</Button>
             </Toolbar>
           </AppBar>
           <Grid container justify="center">
@@ -137,8 +140,14 @@ class App extends Component {
                           <Typography color="textSecondary">
                             Gas price
                           </Typography>
-                          <Typography variant="headline">
+                          <Typography variant="headline" className={classes.pos}>
                             {this.state.gasPrice}
+                          </Typography>
+                          <Typography color="textSecondary">
+                            Nonce
+                          </Typography>
+                          <Typography variant="headline">
+                            {this.state.nonce}
                           </Typography>
                         </React.Fragment>
                       }
