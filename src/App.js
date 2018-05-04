@@ -70,6 +70,7 @@ class App extends Component {
         gas: parseInt(dTx.gas.toString("hex"), 16),
         gasPrice: parseInt(dTx.gasPrice.toString("hex"), 16),
         nonce: parseInt(dTx.nonce.toString("hex"), 16) || 0,
+        etherscanURL: "https://etherscan.io/tx/0x" + dTx.hash().toString("hex"),
       });
     }
   }
@@ -146,9 +147,10 @@ class App extends Component {
                           <Typography color="textSecondary">
                             Nonce
                           </Typography>
-                          <Typography variant="headline">
+                          <Typography variant="headline" className={classes.pos}>
                             {this.state.nonce}
                           </Typography>
+                          <Button variant="raised" color="primary" href={this.state.etherscanURL}>View in Etherscan</Button>
                         </React.Fragment>
                       }
                     </Paper>
